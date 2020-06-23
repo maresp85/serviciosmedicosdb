@@ -18,6 +18,8 @@ let usuarioSchema = new Schema({
     telefono: { type: String, required: false },
     role: { type: String, required: true, default: 'PACIENTE', enum: rolesValidos },
     estado: { type: Boolean, default: true },
+    especialista: { type: Boolean, required: false, default: false },    
+    especialidad: { type: Schema.Types.ObjectId, required: false, ref: 'especialidad' }, 
 });
 
 usuarioSchema.methods.toJSON = function() {

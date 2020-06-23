@@ -43,6 +43,7 @@ app.post('/cita/crear', (req, res) => {
         servicio: body.servicio,
         medico: body.medico,
         paciente: body.paciente,
+        fecha: body.fecha
     });
 
     data.save((err, citaDB) => {

@@ -47,6 +47,36 @@ app.get('/usuario', (req, res) => {
 });
 
 
+// ==========================================
+// Consultar todos los medicos especialistas
+// ==========================================
+
+app.get('/usuarioespecialista', (req, res) => {
+
+    let email = req.params.email;
+
+    Usuario.find({ especialista: 1 })
+           .populate('especialidad')
+           .exec((err, usuarioDB) => {
+                if (err) {
+                    return res.status(400).json({
+                        ok: false,
+                        err
+                    });
+                }
+
+                Usuario.count({}, (err, conteo) => {
+                    res.json({
+                        ok: true,
+                        usuarioDB
+                    });
+                });
+                
+           });
+});
+
+
+
 // ========================================
 // Consultar un usuario a partir del ID
 // ========================================
