@@ -48,12 +48,37 @@ app.get('/usuario', (req, res) => {
 
 
 // ==========================================
+// Consultar todos los médicos
+// ==========================================
+
+app.get('/medico', (req, res) => {
+
+    Usuario.find({ role: 'MEDICO', especialista: 0 })
+           .populate('especialidad')
+           .exec((err, usuarioDB) => {
+                if (err) {
+                    return res.status(400).json({
+                        ok: false,
+                        err
+                    });
+                }
+
+                Usuario.count({}, (err, conteo) => {
+                    res.json({
+                        ok: true,
+                        usuarioDB
+                    });
+                });
+                
+           });
+});
+
+
+// ==========================================
 // Consultar todos los medicos especialistas
 // ==========================================
 
 app.get('/usuarioespecialista', (req, res) => {
-
-    let email = req.params.email;
 
     Usuario.find({ especialista: 1 })
            .populate('especialidad')
