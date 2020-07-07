@@ -1,4 +1,5 @@
 const express = require('express');
+const { verificaToken } = require('../middlewares/autenticacion');
 var moment = require('moment');  
 let app = express();
 
@@ -7,7 +8,7 @@ let cita = require('../models/cita');
 // =============================
 // Consultar Citas
 // =============================
-app.get('/cita/listar/:paciente', (req, res) => {
+app.get('/cita/listar/:paciente', verificaToken, (req, res) => {
 
     let paciente = req.params.paciente;
 
